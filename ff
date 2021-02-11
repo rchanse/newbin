@@ -1,0 +1,225 @@
+#!/usr/bin/env bash
+
+# function to copy at top and use ech0 (rather than ech1
+function ech0 () {     # turn on debugging with  export ech0=ON
+  if [ ".$ech0" == ".ON" ]; then
+    echo $@
+  fi  
+}
+
+myeditor="vim"
+#myeditor="nano"
+#myeditor="micro"
+#myeditor="mousepad"
+
+
+base_dir="etc"
+parm_dir=$HOME/$base_dir
+
+ech0 " $base_dir   $parm_dir"
+
+usage() {
+  cat <<EOF
+:: usage :::::::::::::::::::::::::::::::::::::::::::::::::::  
+Name: ff - used to extend f to user chosen projects.
+
+syntax   ff assoc  ov1 ov2 ov3
+   
+parms:
+  null - shows this help information and current member-name.
+  .    - enter the new assoc list file
+  set   - prompt/set the  member               
+          in $parm_dir/ff_assoclist_dir        
+  otherwise acts like f with up to three parms.
+  assoc - user chosen associate to connect with a file
+  ov1 ov2 ov3 - override values (user chosen editor is default)
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::: usage :  
+EOF
+}
+
+########################################### start of ffwork
+function ffwork () {
+
+function ech0 () {     # turn on debugging - export ech0=ON
+  if [ ".$ech0" == ".ON" ]; then
+    echo $@
+  fi  
+}
+function nop() {    # a NO-OP to make code more readable 
+#  VERY helpful  aid in  if-then-else-fi blocks
+#  if condition ; then  remember   if cond ; then
+#     nop                            code
+#  else                            else
+#     nop                            fi will gen synax error
+#  fi
+#              Using  TRUE is EASIER
+  return 0
+}
+
+### actual start of ffwork code
+
+# handle the parms passed from mainline code
+# was  ffwork  assoc_file assoc p1 p2 p3
+assoc_file=$1   # the sub dir to use
+sub1=$2      # the assoc passed to ff
+sub2=$3      # override parm1
+sub3=$4      # override parm2
+sub4=$5      # override parm3
+
+#handle command line override
+co=""                # command line override
+if [ ".$sub2" != "." ]; then co="$sub2";fi
+if [ ".$sub3" != "." ]; then co="$co $sub3";fi
+if [ ".$sub4" != "." ]; then co="$co $sub4";fi
+ech0 "\$co $co"
+
+
+if [ ".$sub1" == ".." ] ; then    # use  to get to the assoc file
+	$myeditor $assoc_file 
+	exit
+fi
+
+echo "Processing $assoc_file"
+echo "looking for assoc: $sub1"
+found="no"   
+
+# logic is processing a file looking for assoc to associate with a
+# file and then take action.
+
+#  while  line in file ; do
+#     the processing (see comments below
+#  done < assoc-file
+
+while read -r aline; do
+read -r assoc filename resta <<< $aline
+
+#  if null-line skip it  (debug msg as null/blank line.)
+#     if char1 of assoc is #  skip it  (debug msg as comment
+#        if passed-val is assoc  mark found and leave to process
+
+if [ "." != ".$assoc" ]; then        # null assoc => blank line
+  if [ ${assoc:0:1}  != "#" ]; then  # char(1) of assoc => comment
+    # nop
+    if [ "$sub1" == "$assoc" ] ; then  # matching assoc ??
+      found='yes'
+      ech0 "found is now yes for " $assoc  $filename
+      break        # exit loop if found
+
+    else
+      nop
+      ech0 "No assoc match,Onto the next line "
+    fi
+  else
+    ech0 $aline
+    ech0 comment line
+  fi
+else
+  ech0 $aline
+  ech0 blank line
+fi
+done < $assoc_file        # end read loop from given assoc file 
+
+# NOT found msg and exit
+if [ "$found" == "no" ] ; then
+	echo "::                                               "
+	echo ::  assoc  $sub1  NOT found try . for assoclist 
+	echo "::                                               "
+	exit 4  
+fi
+
+echo "found line ==>>:$aline"
+read -r pr1 pr2 pr3 restaa <<< $resta   # parse for overrides
+ech0 "1 $pr1 2 $pr2 3 $pr3"
+
+# handle parmlib override
+parm_ov=""              # default none
+if [ ".$pr1" != "." ]; then parm_ov="$pr1";fi
+if [ ".$pr2" != "." ]; then parm_ov="$parm_ov $pr2";fi
+if [ ".$pr3" != "." ]; then parm_ov="$parm_ov $pr3";fi
+
+# Handle ~/whoever   to become     /home/$USER/whoever
+if [ ".${filename:0:1}" == ".~" ] ; then
+	lead=$HOME              # now is /home/$USER   or   /root
+	tailend=${filename:1}   # peel off the ~
+	filename=$lead$tailend  # provide actual name 
+fi
+echo "default             = "$myeditor
+echo "assoc line override = "$parm_ov
+echo "cmd  line override  = "$co
+
+cmd_action="$myeditor"
+if [ ".$parm_ov" != "." ]; then cmd_action=$parm_ov;fi
+if [ ".$co" != "." ] ; then cmd_action=$co; fi
+echo "Created comand: $cmd_action $filename"
+$cmd_action $filename
+exit
+}
+########################################### end   of ffwork
+
+## Actual start of mainline ff is here <<<=============
+# copy parms
+p1=$1
+p2=$2
+p3=$3
+p4=$4
+
+## insure the curren member exists  (else make & set it)
+# This is == first time code == to set the environment.
+
+# create the subdir and its member firsttime , populate it
+# set the file with the current usage mem to firsttime
+if [ ! -d $parm_dir/ff_assoclist_dir ]; then
+  mkdir $parm_dir/ff_assoclist_dir
+  mkdircc=$?
+  dummy="# assoc f(assoc) ov1 ov2 ov3 rest"
+  echo "$dummy" > $parm_dir/ff_assoclist_dir/firsttime 
+fi
+if [ ! -f $parm_dir/ff_assocname ]; then
+  echo "firsttime" > $parm_dir/ff_assocname
+else
+  read -r assocname rest < $parm_dir/ff_assocname
+fi
+
+# end of == first time code ===  only run to seed values.
+
+if [ ".$p1" == "." ] || [ ".$p1" == ".--help" ]; then
+  clear
+  usage
+
+  # in general
+  read -r assocname < $parm_dir/ff_assocname
+  echo
+  echo "Current assoclist ==>> $assocname <<==, found in"
+  echo "directory $parm_dir/ff_assoclist_dir"
+  echo
+  echo "List of non-default current choices:"
+  ls -A $parm_dir/ff_assoclist_dir
+  exit 0
+fi
+
+
+if [ ".$p1" == ".set" ]; then
+  p1="SET" 
+fi
+
+if [ ".$p1" == ".SET" ]; then 
+  echo -n "Enter the assoclist file name : "
+  read -r answer   rest
+  assocname=$answer  
+  echo $assocname > $parm_dir/ff_assocname
+  echo "Using : "$assocname" for ff_assocfile_dir member name."
+  # if non-existent then alloc/seed it
+  if [ ! -f $parm_dir/ff_assoclist_dir/$assocname ]; then
+    dummy="# assoc  f(assoc) ov1 ov2 ov3 rest"
+    echo "$dummy" > $parm_dir/ff_assoclist_dir/$assocname 
+  fi
+# assoc_file=$parm_dir/ff_assoclist_dir/$assocname
+  exit      0 
+fi
+
+assoc_file=$parm_dir/ff_assoclist_dir/$assocname
+ech0 "ffwork $assoc_file  $p1 $p2 $p3 $p4"
+ffwork $assoc_file  $p1 $p2 $p3 $p4
+echo "return to end of main"
+
