@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+if [ ".$1" == "." ]; then
+cat << EOF-usage
+syntax - db key filename
+dbt - a quick diff check between bin and key
+ keys  t  bintest
+       m  mybin
+       b  wherebls
+       bc wherebls/bincode
+      no existance checking - just fails
+EOF-usage
+exit 0
+fi
+
+key=""
+if [ ".$1" == ".t" ]; then key=bintest; fi
+if [ ".$1" == ".m" ]; then key=mybin; fi
+if [ ".$1" == ".b" ]; then key=wherebls; fi
+if [ ".$1" == ".bc" ]; then key=wherebls/bincode; fi
+
+if [ ".$key" != "." ]; then
+    echo "diff ~/bin/$2 ~/$key/$2"
+    diff ~/bin/$2 ~/$key/$2
+    let drc=$?
+    if [ $drc = 0 ]; then
+    echo "~/bin/$2  EQUALs ~/$key/$2"
+    else
+    echo "diff rc = $drc -- see above."
+    fi
+fi
