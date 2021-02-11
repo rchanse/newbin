@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+
+echo "start here"
+
+# function to copy at top and use ech0 (rather than ech1
+function ech0 () {     # turn on debugging with  export ech0=ON
+  if [ ".$ech0" == ".ON" ]; then
+    echo $@
+  fi  
+}
+
+function showpath (){
+#!/usr/bin/env bash
+    IFSsave=$IFS         # save info
+    IFS=":"
+    read -r -a who <<< "$PATH"   # parse into who array  sep is xff
+    let ub=${#who[@]}         # put length in ub (upper bound) var
+    let j=0
+    while [ $j -lt $ub ]; do    # loop to show variable
+      if [ ".${who[$j]}" == ".." ]; then
+        who[$j]=$PWD
+        echo "found file '.' replace with pwd-value index: $j"
+      fi
+      echo $j  ${who[$j]}
+      let j=$j+1
+    done
+    IFS=$IFSsave                 # restore
+}
+
+function mem_check () {
+    chk_mem=$1
+    found="no"
+    IFS=":"            # set Interal Field Seperator for PATH var
+    ech0 $PATH
+
+    read -r -a p_file <<< "$PATH"   # parse into p_file array  sep is colon
+#   ech0 ${#p_file[*]}           # num of elt in array   
+    let ub=${#p_file[@]}         # another num of elt in array 
+#   ech0 $ub
+
+    let j=0
+    while [ $j -lt $ub ]; do    # loop to show variable
+      
+      if [ ".${p_file[$j]}" == ".." ]; then   # replace . by pwd 
+        p_file[$j]=$PWD
+      fi
+
+      if [ -f ${p_file[$j]}/$chk_mem ]; then  # show if found in dir.
+        if [ ".${p_file[$j]}" == ".$dir_to_check" ]; then
+          echo $j  $chk_mem  is in ${p_file[$j]} 
+          true                     # satisfy if need an action
+        else
+          echo $j  $chk_mem  is in ${p_file[$j]}" <<<==possible onflict===" 
+          let conflict_count=$conflict_count+1
+        fi
+        found="yes"
+      fi
+      let j=$j+1
+    done
+
+    if [ ".$found" == ".no" ]; then
+      echo "*** $chk_mem is NOT in your PATH. ****"
+    fi
+    
+  IFS=" "   # I M P O R A N T -- reset for blanks as parse sep.
+} 
+
+if [ ".$1" == "." ]; then
+
+cat << "EOF"
+usage: determine which files in a directory are also in PATH file.
+syntax: dirinpath parm1
+
+parm1: NULL - shows this help
+       othe - uses other to be the specified path
+
+EOF
+
+exit 0
+fi
+
+dir_to_check=$1      # <<========= file to process
+
+
+if [ -d $dir_to_check ]; then
+  echo
+  echo "List of files in $dir_to_check "
+  ls -A $dir_to_check                      # show it
+  ls -A $dir_to_check > /tmp/lslist$USER   # save it
+else
+  echo
+  echo "Requested directory $dir_to_check does NOT exist!!!"
+  echo "Out of here."
+  exit 4
+fi
+
+function emptyfile () {
+  if [ -f $1 ]; then
+    rm $1
+    touch $1
+  else
+    touch $1
+  fi
+}
+
+#   cat > /tmp/skiplist << EOF-skip         # 2. write to temp file
+#   f_acrolist      # list may change over time
+#   c               # inline directories may change
+#   tempname
+#   TEMPNAME
+#   EOF-skip 
+
+#   let i=0                        # 3. write back to array
+#   while read -r who rest ; do
+#       skip[$i]=$who
+#       let i=$i+1
+#   done < /tmp/skiplist   # list of mems to skip
+##  let num_skip=$i        # actually one more so chk less
+#
+#   # list the skip list
+#   echo
+#   echo "Skip list below:"
+#   let i=0
+#   while [ $i -lt $num_skip ]; do
+#   echo $i ${skip[$i]}
+#   let i=$i+1
+#   done
+
+echo
+echo "PATH by number"
+showpath
+
+echo
+echo "Process list for $dir_to_check"
+echo "============================================="
+
+let conflict_count=0
+while  read -r filename rest ; do
+  echo "Processing; $filename  in $dir_to_check."
+  mem_check $filename
+  echo
+done < /tmp/lslist$USER
+echo
+if [ $conflict_count -ne 0 ] ; then
+  echo "*==========================================================*"
+  echo "*==========================================================*"
+fi
+echo "There were $conflict_count members in PATH libs other than"
+echo "$dir_to_check that might be conflicts.  ($conflict_count)"
+if [ $conflict_count -ne 0 ] ; then
+  echo "*==========================================================*"
+  echo "*==========================================================*"
+fi
+echo
+echo "STOP for NOW"
+exit 0
+
