@@ -1,0 +1,98 @@
+   .     ~/.vim/FF_acrolist  
+  .t        /home/rchansen/tmplist
+  Tkinter  /usr/lib/python2.7/lib-tk/Tkinter.py  less
+  acrobin   ~/bin/FF_acrolist  
+  apacheconf /etc/apache2/apache2.conf
+  apachedoc /usr/share/doc/apache2/README.Debian.gz
+  bashrc   ~/.bashrc
+  bin12list ~/bin12oct16/bin12oct16list
+  bind     ~/bin               ls -al
+  binmovelog ~/binmove.log
+  bml     ~/binmove.log
+  cdit      /home/rchansen/bin/cdit
+  cdit.     ~/.local/bin/cdit
+  colomine /home/rchansen/.vim/colors/mine.vim
+  colordoc /home/rchansen/.vim/colors/colordoc
+  colotest /home/rchansen/.vim/colors/test.vim
+  complete /usr/share/bash-completion/bash_completion
+  debref  /home/rchansen/Documents/Manuals/debian-reference.en.txt
+  debug   ~/.de_bug
+  dnsinfo  /etc/resolv.conf
+  dopw /var/www/html/doku2/data/pages/rch/passwords.txt
+  f        ~/bin/f
+  f$       /home/rchansen/bin/f
+  f+        /home/rchansen/bin12oct16/f
+  fold       /home/rchansen/bin/fold
+  fold       ~/bin/fold
+  ftpconf  /etc/vsftpd.conf   sudo vim
+  g        /home/rchansen/bin/g                           
+  g12      ~/bin12oct16/g                           
+  gitinfo ~/git-projects/an_intro/rchme   nano
+  goto   ~/Documents/Dijkstra_Goto.pdf  evince
+  grp     /home/rchansen/python/zelle/$USER/graphics.py
+  grpy     /home/rchansen/python/zelle/rchansen/graphics.py
+  grubdoc  /usr/share/info/grub.info.gz      
+  hostname /etc/hostname
+  hosts    /etc/hosts
+  idle     /usr/lib/python2.7/idlelib/idle.py  less
+  japdoc    ~/tn/japneuro
+  japn     ~/tn/japn     
+  japneuro  ~/tn/japneuro
+  knr     ~/Documents/knr.pdf   evince
+  knrpdf    ~/Documents/knr.pdf   xpdf
+  learnpy  ~/pycode/learningpython.pdf xpdf  
+  learnpye ~/pycode/learningpython.pdf evince
+  mcini   /home/rchansen/.config/mc/ini                 
+  mine    ~/.vim/colors/mine.vim
+  nbdjnotes /home/rchansen/nbdjango/rchnbdj/rchnotes
+  netif    /etc/network/interfaces  
+  notes /home/rchansen/nbdjango/rchnbdj/rchnotes
+  pdbdoc   /usr/lib/python2.7/pdb.doc
+  phonedoc ~/Documents/Manuals/ATT_Z222.pdf  evince
+  profile  ~/.profile
+  progit /home/rchansen/git-projects/Books/progit-en.1084.pdf evince
+  progitx /home/rchansen/git-projects/gitstuff/progit-en.1084.pdf xpdf 
+  pycook   ~/Documents/pythoncookbook.pdf   evince
+  pypdf    ~/pycode/learningpython.pdf evince
+  pysyn    /usr/share/vim/vim74/syntax/python.vim
+  pyv5     ~/pycode/learningpython.pdf xpdf  
+  qnote    ~/tn/qnote
+  readbit  ~/tkinter/bitcoin/README.rch
+  scam   ~/temp/scam
+  stdio    /usr/include/stdio.h
+  stdlib   /usr/include/stdlib.h
+  stringh  /usr/include/string.h
+  tempname ~/tempname
+  testing ~/testing
+  theodoro  /home/rchansen/tn/Theodoro
+  timeit   ~/timeit_log
+  tk27     /usr/lib/python2.7/lib-tk/Tkinter.py
+  tmplist  /home/rchansen/tmplist              
+  tmplst  /home/rchansen/tmplst              
+  tn       ~/tempname
+  turtle   /usr/lib/python2.7/lib-tk/turtle.py
+  uservbox ~/Downloads/virtualbox/UserManual.pdf   xpdf
+  v5e      ~/pycode/learningpython.pdf evince
+  v5x      ~/pycode/learningpython.pdf xpdf  
+  vbox ~/vbox/UserManual.pdf   xpdf
+  vimP     ~/.vimP
+  vimV     ~/.vimV
+  vimbook /home/rchansen/Documents/books/vimbook-OPL.pdf  xpdf
+  vimbook1 /home/rchansen/Documents/books/vimbook-OPL.pdf  evince
+  vimrc    /home/rchansen/.vimrc
+  vimrc    ~/.vimrc
+  vimrc    ~/.vimrc
+  vimsyn   /usr/share/vim/vim74/syntax/syntax.vim
+  wf  ~/blp/learn2pgmC/wherefrom
+  whatis   /home/rchansen/bin/whatis 
+  whoami  ~/whoami
+  xkb   /usr/share/X11/xkb
+  zelle   /home/rchansen/python/zelle/rchansen 
+  zellepage   /home/rchansen/python/zelle/rchansen/page 
+  zellepdf /home/rchansen/python/zelle/zellepythonbook.pdf  xpdf
+  zellepdf1 /home/rchansen/python/zelle/zellepythonbook.pdf   evince
+# format of acro file     (action=null -> vim   
+# if first non blank is "#" the line is a comment and bypassed
+# if parm3 (action) is sudo  then  'sudo vim filename'  is issued
+#acronym       filename	         action to take  none/null = vim
+thinkpy /home/rchansen/Documents/Manuals/thinkpython.pdf evince
