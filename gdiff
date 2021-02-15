@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+
+
+function ech0 () {               # set  debug=ON  export debug
+  if [ ".$debug" == ".ON" ]; then
+    echo $@
+  fi  
+}
+
+
+usage() {
+cat <<EOF
+:: usage ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  
+Name: $0
+Description: compare two files in a list
+
+syntax  gdiff a b c
+  c - name of list, if c not given use $namelst
+  a - number of file1 in list
+  b - number of file2 in list
+
+  Sample   gdiff 1 2    - compare first and second file in gnamelist
+           gdiff m n > file     will put the output where readable.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: usage :  
+EOF
+}
+
+if [ ".$3" == "." ]; then
+  namelst=~/bin/gnamelist     # old code
+  namelst=~/etc/gnamelist     # new code
+else
+  namelst=$3
+fi
+
+if [ ".$1" == "." ]; then
+  usage
+  exit 0
+fi
+
+d1=$1
+d2=$2
+
+nl=`wc $namelst  |  awk '{print $1}'`
+
+ech0 "nl " $nl
+
+
+# list functions
+
+# checking for an integer type value  found linuxquestion
+function is_integer() {
+  printf "%d" $1 > /dev/null 2>&1
+  return $?
+}
+
+# checking for an integer is in range  between 1 and nl
+function in_range() {
+  if [ $1 -ge 1 ] && [ $1 -le $nl ] ; then
+    return 0
+  else
+    return 1 
+  fi
+}
+
+function get_file() {
+  if  is_integer $1; then
+      if in_range $1; then
+        thefile=`head -n$1 $namelst     | tail -n1`
+        
+        # handle the ~
+        if [ ${thefile:0:1} == "~" ] ; then
+        tailend=${thefile:1}
+        thefile=$HOME$tailend
+        fi
+      else
+        echo $1 is NOT in RANGE  1 .. $nl
+        exit 100
+      fi
+  else
+      echo "$1 is NOT and integer"
+      echo "how to handle  $1  is unknown "
+      exit 200
+  fi
+}
+
+
+#echo Here $1 $d1
+get_file $d1
+diff1=$thefile
+#echo $diff1
+get_file $d2
+diff2=$thefile
+
+echo diff $diff1 $diff2
+diff $diff1 $diff2
+diff_rc=$?
+echo ":::::::::::::::::::::::::::::::::::::::::::::;"
+echo file1: $diff1
+echo file2: $diff2
+echo difference retcode: $diff_rc
+

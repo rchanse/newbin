@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# gotten from http://marklodato.github.io/visual-git-guide/index-en.html
+
+show_status()  {
+  echo "HEAD:      $(git cat-file -p HEAD:myfile)"
+  echo "Stage:     $(git cat-file -p :myfile)"
+  echo "Worktree   $(cat myfile)"
+}
+
+initial_setup() {
+  echo 3 > myfile
+  git add myfile
+  echo 4 > myfile
+  show_status
+}
+
+unmarkl() {
+  unset -f show_status
+  unset -f initial_setup
+  unset -f unmarkl
+}

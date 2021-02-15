@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+echo "diff ~/bin/$1  ~/bintest/$1"
+diff ~/bin/$1  ~/bintest/$1
+let drc=$?
+if [ $drc = 0 ]; then
+  echo bin/$1  EQUALs bintest/$1
+else
+  echo "UNEQUAL - see above."
+fi

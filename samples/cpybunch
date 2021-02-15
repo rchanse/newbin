@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# help first ( don't forget to chmod +x
+# or name it - pound_bang, lbbang, lb_bang or (modern) hashtag
+ 
+if [ ".$1" == "." ] || [ ".$1" == ".--help" ]; then
+cat << EOF_usage
+usage: copy a set of members from one lib to another
+syntax cpybunch parm1
+            parm1 
+              NULL --help - show this help
+              i - interactive prompt required
+              other - copy not prompt
+
+Three prompts
+  1. input lib dir
+  2  output lib dir
+  3. name of list (assumed in pwd)
+
+EOF_usage
+
+fi
+
+echo -n "Enter input lib dir:"
+read -r inlib rest
+echo -n "Enter output lib dir:"
+read -r outlib rest
+if [ ! -d $outlib ]; then
+  cd
+  mkdir $outlib
+  cd -
+fi
+ 
+
+echo -n "Enter lib with list:"
+read -r liblist rest
+if [ ! -d $liblist ]; then
+  echo "$liblist  DOES NOT EXIST!!  quitting - no work done"
+  exit
+fi
+k
+echo
+ls -A $liblist
+echo
+echo "Copy from $inlib to $outlib"
+echo -n "(y/Y-yes, other-no OK?? "
+read -r answer rest
+if [ ".$answer" == ".y" ] || [ ".$answer" == ".Y" ]; then
+  echo "done"
+else
+  echo "answer ($answer) NOT 'y' or 'Y'  quitting."
+  echo "No Copies done"
+fi
+exit 0          # change to return (if sourced)

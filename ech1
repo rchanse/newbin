@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# function ech0 () {     # turn on debugging with  export ech0=ON
+  if [ ".$ech0" == ".ON" ]; then
+    echo $@
+  fi  
+#}
+
+
