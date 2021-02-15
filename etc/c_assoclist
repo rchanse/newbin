@@ -1,0 +1,43 @@
+# assoc   c(assoc)   documentation
+pyc ~/pycomplete         python the complete manual
+-e  /etc
+apache   /etc/apache2
+apachedoc /usr/share/doc/apache2
+b        ~/bin   my personal scripts
+blp    ~/blp
+bc     ~/goodbincode
+bin        ~/bin
+bincode ~/goodbincode
+binl       ~/.local/bin
+binlocal   ~/.local/bin
+bintest    ~/bintest
+bintoo        /home/rchansen/bin
+bt   ~/bintest
+cpy ~/cpython
+dc     ~/Documents
+dl     ~/Downloads
+doku  /var/www/dokuwiki
+down   ~/Downloads
+e       ~/etc
+etc     /etc
+fu      ~/fubar       
+ggh ~/gitandgithub
+home   /home
+master /
+micro  ~/gitstuff/micro
+mp     ~/my-project
+mycode  ~/mycodedoc
+qt       ~/.config/qtile
+qtile       ~/.config/qtile
+py27       /usr/lib/python2.7
+py34       /usr/lib/python3.4
+vimc     /usr/share/vim/vim80/colors
+vimcolor  ~/.vim/colors
+vl     /var/log
+w   /home/wally/fubar/c_acrolist less
+wally    /home/wally
+wally   /home/guido
+wbls ~/wherebls     my base product to manage  whereisit repository
+wi      ~/whereisit
+xt         ~/bintest
+

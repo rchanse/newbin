@@ -1,0 +1,109 @@
+#
+#        Format of lines below
+#  0  assoc  filename	 action-to-take   of none/null = vim
+#  1. pound in col 1 is comment
+#  2. make a copy of 'Op .... .pdf' so atril can find it
+#  3. ostep ~/'Operating Systems - Three Easy Pieces.pdf'  atril
+#  4. to see debug aids precede f-cmd with  export debug="ON"
+#  5. to insure edit  use   acro filename  sudo vim    
+#  6. :sort  will 'sort' this file
+#  can use vim   :% su/fubar/fubar/g
+#  in this file change fubar to  your exec-lib (fubar ??)
+# 0. associate filename  up to 3 override parms, if none/null = editor
+#----
+.t        /home/rchansen/tempname
+.d        ~/.de_bug
+3ep       ~/os/book.pdf   xpdf
+3epe      ~/os/book.pdf   evince
+T          ~/tempname
+T       ~/tempname a b c
+a        $T
+a a  
+a1 a p1  
+a2 a p1 p2 
+a3  a a3 a33 a333
+a3 a p1 p2 p3
+ap       ~/whereisit/addpath
+bl  /var/log/boot.log  sudo vim
+bld /home/wally/mysource/buildlib
+build    ~/whereisit
+cdit      /home/rchansen/bin/cdit
+cl1  ~/cleanup/bls_wally1
+clr  ~/cleanup/doc
+colomine /home/rchansen/.vim/colors/mine.vim
+colomine ~/.vim/colors/mine.vim
+colordoc /home/rchansen/.vim/colors/colordoc
+colotest /home/rchansen/.vim/colors/test.vim
+com  ~/wherebls/commrade
+complete /usr/share/bash-completion/bash_completion
+dnsinfo  /etc/resolv.conf
+doc      ~/whereisdoc
+dtinst /home/rchansen/Downloads/archlinux/otb/dotfiles/archinstall
+# next line is my personal etc
+e     ~/etc 
+esp   /etc/skel/.profile
+exec  /home/wally/mysource/execlib
+f        ~/bin/f
+f$       /home/rchansen/bin/f
+fl       ~/bin/f less
+fn       ~/bin/f nano
+fw    ~/whereisit/followwally
+g        /home/rchansen/bin/g                           
+gitc ~/.gitconfig
+grout ~/etc/grmeout
+h   /etc/hosts
+hardpdf  ~/Chardway/hardway.pdf atril
+hardway  ~/Chardway/hardway.pdf atril
+hear ~/wherebls/hearsthedeal
+hedit  /etc/hosts sudo vim
+heditn /etc/hosts sudo nano
+hlo   histlogold
+hn  /etc/hostname
+hostname /etc/hostname
+hosts    /etc/hosts  
+idle     /usr/lib/python2.7/idlelib/idle.py  less
+jt       ~/junktest
+knr     ~/Documents/knr.pdf   atril
+knrpdf    ~/Chardway/knr.pdf atril
+learnpy  ~/pycode/learningpython.pdf atril
+learnpy  ~/pythonrch/learningpython.pdf xpdf  
+mcini   /home/rchansen/.config/mc/ini                 
+myp ~/.profile
+netif    /etc/network/interfaces  
+netrw    ~/etc/netrw
+os  /etc/os-release
+ostep    ~/xv6-notes/ostep.pdf  atril
+p   /etc/passwd less
+pdbdoc   /usr/lib/python2.7/pdb.doc
+progit /home/rchansen/gitstuff//progit-en.1084.pdf xpdf 
+pw      /etc/passwd
+qf       ~/.config/qtile/config.py
+qfdefault /home/rchansen/Desktop/qtile/libqtile/resources/default_config.py
+qfdt     ~/temp/DTqfile
+qft  /home/rchansen/.config/qtile/config.py
+qt       ~/.config/qtile/config.py
+qtf      ~/.config/qtile/config.py
+qtile ~/.config/qtile/config.py
+rchn   /home/rchansen/apue2/rch2/rchnotes
+sh  /etc/shadow
+stdio    /usr/include/stdio.h
+stdlib   /usr/include/stdlib.h
+stringh  /usr/include/string.h
+t       tempname
+t       tempname
+tempname ~/tempname
+testdoc  ~/bin/testdoc/mydoc
+thinkpy /home/rchansen/Documents/Manuals/thinkpython.pdf atril
+v     ~/.vimrc
+vb /usr/share/doc/virtualbox-6.1/UserManual.pdf atril
+vimrc ~/.vim/vimrc
+vimrc ~/.vim/vimrc
+w /home/wally/fubar/f_acrolist
+wf     /home/wally/mysource/execlib/f_acrolist
+wg     /home/wally/mysource/execlib/gnamelist   less -N
+win ~/winotes
+wino ~/wintes/order
+xv6   ~/bin/ff_acrolist_dir/xv6
+z   ~/bintest/'a b'
+zelle   /home/rchansen/python/zelle/rchansen 
+
