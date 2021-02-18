@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# note this is a way to get a number without using awk  (see f code)
+tt=`wc $1`
+echo $tt
+read -r line words chars filename xrest <<< $tt
+echo "$line"
+echo "$words"
+echo "$chars"
+echo "$filename"
+echo "$rest"
+exit 0
+
+
+tt=`ls -A $1 | wc`
+echo $tt
+read num_mems rest <<< $tt
+echo $num_mems
+let count=$num_mems
+echo $count
+if [ $count -eq 0 ]; then
+  echo "$1 is an empty directory"
+else
+  echo "$1 has $count members"
+fi
+let count=$count+1
+echo $count

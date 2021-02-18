@@ -2,8 +2,8 @@
 
 myeditor="vim"                # set the default myeditor
 base_dir="etc"                # dir for the assoclist
-if [ ! -d $HOME/$basd_dir ]; then
-  mkdir $HOME/base_dir
+if [ ! -d $HOME/$base_dir ]; then
+  mkdir -pv $HOME/$base_dir
 fi
 
 # debugging I left in the debugging echos but you can turn then on/off
